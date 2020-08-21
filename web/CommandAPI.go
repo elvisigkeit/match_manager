@@ -1,17 +1,18 @@
 package web
 
-import "encoding/json"
+import (
+    "github.com/elvismdnin/crius/internal/data"
+    "encoding/json"
+    "net/http"
+    "github.com/gorilla/mux"
+)
 
 func CommandMove(w http.ResponseWriter, r *http.Request) {
     params := mux.Vars(r)
-    var pos Position
+    var pos data.Position
     _ = json.NewDecoder(r.Body).Decode(&pos)
-
-    player := players[params["id"]]
-    player.Pos.X = pos.X
-    player.Pos.Y = pos.Y
-    players[params["id"]] = player
-    
+    data.ChangePlayerPosition(params["id"], pos.X, pos.Y)
+    players := data.RetrievePlayers()
     json.NewEncoder(w).Encode(players)
 }
 
