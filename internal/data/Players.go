@@ -16,7 +16,8 @@ func RetrievePlayers() map[string]Player {
     return players
 }
 
-func AddInPlayers(id string, player Player) {
+func AddInPlayers(id string, char string, x int, y int) {
+    player := Player{Char: char, Pos: Position{X: x, Y: y}}
     players[id] = player
 }
 
