@@ -10,18 +10,12 @@ type Player struct {
     Pos       Position `json:"pos"`
 }
 
-var players = make(map[string]Player)
-
-func RetrievePlayers() map[string]Player {
-    return players
-}
-
-func AddInPlayers(id string, char string, x int, y int) {
+func AddInPlayers(players map[string]Player, id string, char string, x int, y int) {
     player := Player{Char: char, Pos: Position{X: x, Y: y}}
     players[id] = player
 }
 
-func ChangePlayerPosition(id string, x int, y int) {
+func ChangePlayerPosition(players map[string]Player, id string, x int, y int) {
     player := players[id]
     player.Pos.X = x
     player.Pos.Y = y
