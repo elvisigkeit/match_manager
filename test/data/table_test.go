@@ -1,4 +1,4 @@
-package web
+package data
 
 import (
 	"github.com/elvismdnin/crius/internal/data"
