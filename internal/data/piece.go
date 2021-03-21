@@ -15,6 +15,10 @@ func CheckValidMovement(orix int, oriy int, desx int, desy int, table [8][8]Squa
 	}
 
 	switch table[orix][oriy].Piece {
+	case 'P':
+		if invalidPawnMovement (orix, oriy, desx, desy, table) {
+			return false
+		}
 	case 'R':
 		if invalidRookMovement (orix, oriy, desx, desy) {
 			return false
@@ -32,7 +36,7 @@ func CheckValidMovement(orix int, oriy int, desx int, desy int, table [8][8]Squa
 			return false
 		}
 	case 'K':
-		if invalidKingMovement (orix, oriy, desx, desy, table) {
+		if invalidKingMovement (orix, oriy, desx, desy) {
 			return false
 		}
 	}
@@ -51,7 +55,29 @@ func intAbs(num int) int {
 	return num
 }
 
-func invalidKingMovement(orix int, oriy int, desx int, desy int, table [8][8]Square) bool {
+func invalidPawnMovement(orix int, oriy int, desx int, desy int, table [8][8]Square) bool {
+	if orix != desx {
+		if table[orix][oriy].Color == 'W' {
+			if intAbs(orix-desx) == 1 && desy-oriy == 1 && table[desx][desy].Color == 'B' {
+				return false
+			}
+		} else {
+			if intAbs(orix-desx) == 1 && desy-oriy == -1 && table[desx][desy].Color == 'W' {
+				return false
+			}
+		}
+		return true
+	}
+	if intAbs(oriy-desy) == 1 {
+		return false
+	}
+	if intAbs(oriy-desy) == 2 && (oriy == 1 || oriy == 6){
+		return false
+	}
+	return true
+}
+
+func invalidKingMovement(orix int, oriy int, desx int, desy int) bool {
 	return intAbs(orix-desx) > 1 || intAbs(oriy-desy) > 1
 }
 
@@ -155,6 +181,10 @@ func queenIsBishop(orix int, oriy int, desx int, desy int) bool {
 func InvalidPassThrough(orix int, oriy int, desx int, desy int, table [8][8]Square) bool {
 
 	switch table[orix][oriy].Piece {
+	case 'P':
+		if intAbs(oriy-desy) == 2 && table[orix][oriy+1].Piece != 0 {
+			return true
+		}
 	case 'R':
 		for _, square := range rookPath(orix, oriy, desx, desy, table) {
 			if square.Piece != 0 {

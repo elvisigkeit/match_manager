@@ -20,6 +20,48 @@ func TestKingMovement(t *testing.T) {
 	}
 }
 
+func TestPawnMovement(t *testing.T) {
+	table := data.CreateTable()
+
+	if !data.CheckValidMovement(0, 1, 0, 2, table) {
+		t.Error("The pawn should be able to move forward")
+	}
+
+	if !data.CheckValidMovement(0, 1, 0, 3, table) {
+		t.Error("The pawn should be able to move twice at beginning")
+	}
+
+	if data.CheckValidMovement(0, 1, 0, 4, table) {
+		t.Error("The pawn shouldn't be able to move forward thrice")
+	}
+
+	table[0][2].Piece = 'P'
+	table[0][2].Color= 'W'
+
+	table[1][3].Piece = 'P'
+	table[1][3].Color= 'B'
+
+	if data.CheckValidMovement(0, 2, 2, 2, table) {
+		t.Error("The pawn shouldn't be able move horizontally")
+	}
+
+	if data.CheckValidMovement(0, 2, 0, 4, table) {
+		t.Error("The pawn shouldn't be able to move twice at any moment")
+	}
+
+	if !data.CheckValidMovement(0, 2, 1, 3, table) {
+		t.Error("The white pawn should be able to eat horizontally")
+	}
+
+	if !data.CheckValidMovement(1, 3, 0, 2, table) {
+		t.Error("The black pawn should be able to eat horizontally")
+	}
+
+	if data.CheckValidMovement(0, 1, 1, 2, table) {
+		t.Error("The pawn shouldn't be able to move diagonally")
+	}
+}
+
 func TestKnightMovement(t *testing.T) {
 	table := data.CreateTable()
 
@@ -119,6 +161,21 @@ func TestQueenMovementPassThrough(t *testing.T) {
 
 	if data.InvalidPassThrough(3, 0, 5, 2, table) {
 		t.Error("Without the right pawn, the movement is valid")
+	}
+}
+
+func TestPawnMovementPassThrough(t *testing.T) {
+	table := data.CreateTable()
+
+	if data.InvalidPassThrough(0, 1, 0, 3, table) {
+		t.Error("Without any obstacle it is valid")
+	}
+
+	table[0][2].Piece = 'N'
+	table[0][2].Color = 'B'
+
+	if !data.InvalidPassThrough(0, 1, 0, 3, table) {
+		t.Error("This pass through of the knight is invalid")
 	}
 }
 
