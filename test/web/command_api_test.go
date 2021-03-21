@@ -1,26 +1,31 @@
 package web
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/elvismdnin/crius/internal/data"
-    "github.com/elvismdnin/crius/web"
-
-	"encoding/json"
+	"github.com/elvismdnin/crius/web"
+	"github.com/gorilla/mux"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
-
-	"github.com/gorilla/mux"
 )
 
-func TestGetTable(t *testing.T) {
+func TestCommandMove(t *testing.T) {
 	w := httptest.NewRecorder()
 	r := mux.NewRouter()
+	web.CommandMove().AddRoute(r)
 
-    table := data.CreateTable()
+	data.Table = data.CreateTable()
+	data.Table[0][1].Color = 0
+	data.Table[0][1].Piece = 0
 
-    web.GetTable(table).AddRoute(r)
-	r.ServeHTTP(w, httptest.NewRequest("GET", "/table", nil))
+	move := data.CreateMove('W', 0, 0, 0, 4)
+	moveJson, _ := json.Marshal(move)
+	moveBody := strings.NewReader(string(moveJson))
+
+	r.ServeHTTP(w, httptest.NewRequest("POST", "/move", moveBody))
 
 	if w.Code != http.StatusOK {
 		t.Error("Did not get expected HTTP status code, got", w.Code)
@@ -41,7 +46,7 @@ func TestGetTable(t *testing.T) {
 		}
 	}
 
-	if strTable != 	"WR WP             BP BR "+
+	if strTable != 	"            WR    BP BR "+
 		"WN WP             BP BN "+
 		"WB WP             BP BB "+
 		"WQ WP             BP BQ "+

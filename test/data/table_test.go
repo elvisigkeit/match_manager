@@ -10,8 +10,8 @@ import (
 func TestCreateTable(t *testing.T) {
 	table := data.CreateTable()
 	var strTable string
-	for _, column := range(table) {
-		for _, val := range(column) {
+	for _, column := range table {
+		for _, val := range column {
 			if val.Piece != 0 {
 				square := fmt.Sprintf("%c%c ", val.Color,val.Piece)
 				strTable += square

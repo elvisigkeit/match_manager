@@ -5,6 +5,9 @@ type Square struct {
     Piece   rune   `json:"piece"`
 }
 
+var Table [8][8]Square
+var Moves []Move
+
 func CreateTable() [8][8]Square {
     var finalSquare [8][8]Square
     for indx := 0; indx < 8; indx++ {
