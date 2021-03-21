@@ -6,8 +6,157 @@ import (
 	"testing"
 )
 
-func TestMovement(t *testing.T) {
+func TestKingMovement(t *testing.T) {
+	table := data.CreateTable()
 
+	table[4][1].Piece = 0
+	table[4][1].Color = 0
+
+	if !data.CheckValidMovement(4, 0, 4, 1, table) {
+		t.Error("The king should be able to move forward")
+	}
+	if data.CheckValidMovement(4, 0, 4, 2, table) {
+		t.Error("The king shouldn't be able to move forward twice")
+	}
+}
+
+func TestKnightMovement(t *testing.T) {
+	table := data.CreateTable()
+
+	if !data.CheckValidMovement(1, 0, 2, 2, table) {
+		t.Error("The knight should be able to move to right")
+	}
+
+	if !data.CheckValidMovement(1, 0, 0, 2, table) {
+		t.Error("The knight should be able to move to left")
+	}
+
+	if data.CheckValidMovement(1, 0, 1, 2, table) {
+		t.Error("The knight shouldn't be able to move forward twice")
+	}
+}
+
+func TestBishopMovement(t *testing.T) {
+	table := data.CreateTable()
+
+	table[1][1].Piece = 0
+	table[1][1].Color = 0
+	table[2][1].Piece = 0
+	table[2][1].Color = 0
+	table[3][1].Piece = 0
+	table[3][1].Color = 0
+
+	if !data.CheckValidMovement(2, 0, 4, 2, table) {
+		t.Error("The bishop should be able to move to right")
+	}
+
+	if !data.CheckValidMovement(2, 0, 0, 2, table) {
+		t.Error("The bishop should be able to move to left")
+	}
+
+	if data.CheckValidMovement(2, 0, 2, 2, table) {
+		t.Error("The bishop shouldn't be able to move forward only")
+	}
+}
+
+func TestRookMovement(t *testing.T) {
+	table := data.CreateTable()
+
+	table[0][1].Piece = 0
+	table[0][1].Color = 0
+	table[1][1].Piece = 0
+	table[1][1].Color = 0
+
+	if !data.CheckValidMovement(0, 0, 0, 4, table) {
+		t.Error("The rook should be able to move")
+	}
+
+	if data.CheckValidMovement(0, 0, 2, 2, table) {
+		t.Error("The rook shouldn't be able to move diagonally")
+	}
+}
+
+func TestQueenMovement(t *testing.T) {
+	table := data.CreateTable()
+
+	table[2][1].Piece = 0
+	table[2][1].Color = 0
+	table[3][1].Piece = 0
+	table[3][1].Color = 0
+	table[4][1].Piece = 0
+	table[4][1].Color = 0
+
+	if !data.CheckValidMovement(3, 0, 3, 4, table) {
+		t.Error("The queen should be able to move like a rook")
+	}
+
+	if !data.CheckValidMovement(3, 0, 5, 2, table) {
+		t.Error("The queen should be able to move like a bishop")
+	}
+
+	if data.CheckValidMovement(3, 0, 4, 2, table) {
+		t.Error("The queen shouldn't be able to move like knights")
+	}
+}
+
+func TestQueenMovementPassThrough(t *testing.T) {
+	table := data.CreateTable()
+
+	if !data.InvalidPassThrough(3, 0, 3, 2, table) {
+		t.Error("This pass through of the front pawn is invalid")
+	}
+
+	if !data.InvalidPassThrough(3, 0, 5, 2, table) {
+		t.Error("This pass through of the right pawn is invalid")
+	}
+
+	table[3][1].Piece = 0
+	table[4][1].Piece = 0
+
+	if data.InvalidPassThrough(3, 0, 3, 2, table) {
+		t.Error("Without the front pawn, the movement is valid")
+	}
+
+	if data.InvalidPassThrough(3, 0, 5, 2, table) {
+		t.Error("Without the right pawn, the movement is valid")
+	}
+}
+
+func TestRookMovementPassThrough(t *testing.T) {
+	table := data.CreateTable()
+
+	if !data.InvalidPassThrough(0, 0, 0, 2, table) {
+		t.Error("This pass through of the pawn is invalid")
+	}
+
+	table[0][1].Piece = 0
+
+	if data.InvalidPassThrough(0, 0, 0, 2, table) {
+		t.Error("Without the pawn, the movement is valid")
+	}
+}
+
+func TestBishopMovementPassThrough(t *testing.T) {
+	table := data.CreateTable()
+
+	if !data.InvalidPassThrough(2, 0, 4, 2, table) {
+		t.Error("This pass through of the right pawn is invalid")
+	}
+
+	if !data.InvalidPassThrough(2, 0, 0, 2, table) {
+		t.Error("This pass through of the left pawn is invalid")
+	}
+
+	table[3][1].Piece = 0
+	table[1][1].Piece = 0
+
+	if data.InvalidPassThrough(2, 0, 4, 2, table) {
+		t.Error("Without the right pawn, the movement is valid")
+	}
+
+	if data.InvalidPassThrough(2, 0, 0, 2, table) {
+		t.Error("Without the left pawn, the movement is valid")
+	}
 }
 
 func TestMovementWithoutPiece(t *testing.T) {
@@ -21,11 +170,14 @@ func TestMovementWithoutPiece(t *testing.T) {
 func TestMovementTowardsOwnPiece(t *testing.T) {
 	table := data.CreateTable()
 
-	if data.CheckValidMovement(2, 0, 3, 0, table) {
+	if data.CheckValidMovement(0, 0, 0, 1, table) {
 		t.Error("Can't movement a piece towards it's own piece")
 	}
 
-	if !data.CheckValidMovement(2, 0, 2, 7, table) {
+	table[0][1].Piece = 0
+	table[0][1].Color = 0
+
+	if !data.CheckValidMovement(0, 0, 0, 6, table) {
 		t.Error("Movement should be possible toward another player's piece")
 	}
 }
