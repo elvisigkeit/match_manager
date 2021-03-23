@@ -41,9 +41,7 @@ func CheckValidMovement(orix int, oriy int, desx int, desy int, table [8][8]Squa
 		}
 	}
 
-	if InvalidPassThrough(orix, oriy, desx, desy, table) {
-		return false
-	}
+	return !InvalidPassThrough(orix, oriy, desx, desy, table)
 
 	return true
 }
@@ -92,10 +90,7 @@ func invalidKnightMovement(orix int, oriy int, desx int, desy int) bool {
 }
 
 func invalidBishopMovement(orix int, oriy int, desx int, desy int) bool {
-	if intAbs(orix - desx) == intAbs(oriy - desy) {
-		return false
-	}
-	return true
+	return intAbs(orix - desx) != intAbs(oriy - desy)
 }
 
 func invalidRookMovement(orix int, oriy int, desx int, desy int) bool {

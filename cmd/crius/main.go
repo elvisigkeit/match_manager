@@ -14,8 +14,6 @@ func main() {
 
     web.GetTable(data.Table).AddRoute(router)
     web.CommandMove().AddRoute(router)
-	// // router.HandleFunc("/move/{id}", web.CommandMove).Methods("POST")
-	// // router.HandleFunc("/skill/{id}", web.CommandSkill).Methods("POST")
 	
     log.Fatal(http.ListenAndServe(":8000", router))
 }
