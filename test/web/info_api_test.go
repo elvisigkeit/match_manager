@@ -27,7 +27,7 @@ func TestGetTable(t *testing.T) {
 	}
 
 	var returnedTable [8][8]data.Square
-	json.Unmarshal([]byte(w.Body.String()), &returnedTable)
+	_ = json.Unmarshal([]byte(w.Body.String()), &returnedTable)
 
 	var strTable string
 	for _, column := range returnedTable {
