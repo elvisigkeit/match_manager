@@ -42,8 +42,6 @@ func CheckValidMovement(orix int, oriy int, desx int, desy int, table [8][8]Squa
 	}
 
 	return !InvalidPassThrough(orix, oriy, desx, desy, table)
-
-	return true
 }
 
 func intAbs(num int) int {

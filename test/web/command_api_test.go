@@ -32,7 +32,7 @@ func TestCommandMove(t *testing.T) {
 	}
 
 	var returnedTable [8][8]data.Square
-	_ = json.Unmarshal([]byte(w.Body.String()), &returnedTable)
+	_ = json.Unmarshal(w.Body.Bytes(), &returnedTable)
 
 	var strTable string
 	for _, column := range returnedTable {

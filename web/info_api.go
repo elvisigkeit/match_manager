@@ -15,7 +15,7 @@ func GetTable(table [8][8]data.Square) web.Handler {
             r.Path("/table").Methods("GET")
         },
 		Func: func(w http.ResponseWriter, r *http.Request) {
-            json.NewEncoder(w).Encode(table)
+            _ = json.NewEncoder(w).Encode(table)
         },
     }
 }
