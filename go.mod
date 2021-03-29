@@ -1,4 +1,4 @@
-module github.com/elvismdnin/crius
+module github.com/elvismdnin/matchManager
 
 go 1.15
 

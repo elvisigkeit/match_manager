@@ -1,7 +1,7 @@
 package data
 
 import (
-	"github.com/elvismdnin/crius/internal/data"
+	"github.com/elvismdnin/matchManager/internal/data"
 
 	"testing"
 )

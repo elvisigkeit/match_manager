@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/elvismdnin/crius/internal/data"
-	"github.com/elvismdnin/crius/web"
+	"github.com/elvismdnin/matchManager/internal/data"
+	"github.com/elvismdnin/matchManager/web"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"

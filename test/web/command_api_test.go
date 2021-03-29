@@ -3,8 +3,8 @@ package web
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/elvismdnin/crius/internal/data"
-	"github.com/elvismdnin/crius/web"
+	"github.com/elvismdnin/matchManager/internal/data"
+	"github.com/elvismdnin/matchManager/web"
 	"github.com/gorilla/mux"
 	"net/http"
 	"net/http/httptest"
