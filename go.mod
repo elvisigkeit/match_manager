@@ -1,4 +1,4 @@
-module github.com/elvismdnin/matchManager
+module github.com/elvismdnin/match_manager
 
 go 1.15
 

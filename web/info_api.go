@@ -1,8 +1,8 @@
 package web
 
 import (
-    "github.com/elvismdnin/matchManager/internal/data"
-    "github.com/elvismdnin/matchManager/internal/web"
+    "github.com/elvismdnin/match_manager/internal/data"
+    "github.com/elvismdnin/match_manager/internal/web"
 
     "encoding/json"
     "github.com/gorilla/mux"

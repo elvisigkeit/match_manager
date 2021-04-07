@@ -1,7 +1,7 @@
 package data
 
 import (
-	"github.com/elvismdnin/matchManager/internal/data"
+	"github.com/elvismdnin/match_manager/internal/data"
 
 	"testing"
 )
