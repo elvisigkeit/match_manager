@@ -6,6 +6,7 @@ import (
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -16,6 +17,13 @@ func main() {
     web.GetTable(data.Table).AddRoute(router)
     web.CommandMove().AddRoute(router)
 
+	srv := &http.Server{
+		Handler: router,
+		Addr:    "localhost:" + port,
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
+	}
+
 	log.Println("Server opened at " + port)
-	log.Fatal(http.ListenAndServe(":" + port, router))
+	log.Fatal(srv.ListenAndServe())
 }
