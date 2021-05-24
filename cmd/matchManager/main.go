@@ -16,6 +16,7 @@ func main() {
 
     web.GetTable(data.Table).AddRoute(router)
     web.CommandMove().AddRoute(router)
+    web.HealthCheck().AddRoute(router)
 
 	srv := &http.Server{
 		Handler: router,
