@@ -19,7 +19,7 @@ func main() {
 
 	srv := &http.Server{
 		Handler: router,
-		Addr:    "localhost:" + port,
+		Addr:    "0.0.0.0:" + port,
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
 	}
